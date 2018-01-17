@@ -86,7 +86,7 @@ For example, the following is a screenshot of a Tensorboard comparing two differ
     
 <img src=http://russellsstewart.com/s/tensorbox/tensorboard_loss.png></img>
 
-##Citation
+## Citation
 <pre>
 <code>
 @article{stewart2016tensorbox,
