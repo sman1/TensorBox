@@ -1,4 +1,4 @@
-<img src=http://russellsstewart.com/s/tensorbox/tensorbox_output.jpg></img>
+## Currently deprecated and works only with Tensorflow 1.1 or 1.2
 
 <img src="https://travis-ci.org/TensorBox/TensorBox.svg?branch=master"></img>
 
