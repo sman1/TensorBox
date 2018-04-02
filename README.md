@@ -1,4 +1,4 @@
-## Currently deprecated and works only with Tensorflow 1.1 or 1.2
+## Currently works with Tensorflow 1.7
 
 <img src="https://travis-ci.org/TensorBox/TensorBox.svg?branch=master"></img>
 
