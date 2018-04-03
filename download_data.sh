@@ -26,10 +26,12 @@ fi
 
 if [[ "$1" == '--travis_tiny_data' ]]; then
     wget --continue http://russellsstewart.com/s/brainwash_tiny.tar.gz
+    echo "Extracting from tar file."
     tar xf brainwash_tiny.tar.gz
     echo "Done."
 else
     wget --continue https://stacks.stanford.edu/file/druid:sx925dc9385/brainwash.tar.gz
+    echo "Extracting from tar file."
     tar xf brainwash.tar.gz
     echo "Done."
 fi
