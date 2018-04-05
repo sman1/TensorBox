@@ -2,8 +2,7 @@ SHELL := /bin/bash
 
 .PHONY: all
 all:
-	pip install runcython
-	makecython++ stitch_wrapper.pyx "" "stitch_rects.cpp ./hungarian/hungarian.cpp"
+	@echo "No longer necessary. Use python setup.py install."
 
 hungarian: hungarian/hungarian.so
 
