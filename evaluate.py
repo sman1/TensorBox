@@ -5,7 +5,7 @@ import subprocess
 from scipy.misc import imread, imresize
 from scipy import misc
 
-from train import build_forward
+from model import TensorBox
 from utils.annolist import AnnotationLib as al
 from utils.train_utils import add_rectangles, rescale_boxes
 
@@ -22,15 +22,16 @@ def get_results(args, H):
     tf.reset_default_graph()
     H["grid_width"] = H["image_width"] / H["region_size"]
     H["grid_height"] = H["image_height"] / H["region_size"]
+    tensorbox = TensorBox(H)
     x_in = tf.placeholder(tf.float32, name='x_in', shape=[H['image_height'], H['image_width'], 3])
     if H['use_rezoom']:
-        pred_boxes, pred_logits, pred_confidences, pred_confs_deltas, pred_boxes_deltas = build_forward(H, tf.expand_dims(x_in, 0), 'test', reuse=None)
+        pred_boxes, pred_logits, pred_confidences, pred_confs_deltas, pred_boxes_deltas = tensorbox.build_forward(tf.expand_dims(x_in, 0), 'test', reuse=None)
         grid_area = H['grid_height'] * H['grid_width']
         pred_confidences = tf.reshape(tf.nn.softmax(tf.reshape(pred_confs_deltas, [grid_area * H['rnn_len'], 2])), [grid_area, H['rnn_len'], 2])
         if H['reregress']:
             pred_boxes = pred_boxes + pred_boxes_deltas
     else:
-        pred_boxes, pred_logits, pred_confidences = build_forward(H, tf.expand_dims(x_in, 0), 'test', reuse=None)
+        pred_boxes, pred_logits, pred_confidences = tensorbox.build_forward(tf.expand_dims(x_in, 0), 'test', reuse=None)
     saver = tf.train.Saver()
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
