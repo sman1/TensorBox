@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 import json
-import cv2
 import tensorflow.contrib.slim as slim
-import datetime
 import random
 import time
 import string
@@ -245,9 +243,9 @@ class TensorBox(object):
         reuse = {'train': None, 'test': True}[phase]
         if self.H['use_rezoom']:
             (pred_boxes, pred_logits,
-             pred_confidences, pred_confs_deltas, pred_boxes_deltas) = build_forward(self.H, x, phase, reuse)
+             pred_confidences, pred_confs_deltas, pred_boxes_deltas) = self.build_forward(x, phase, reuse)
         else:
-            pred_boxes, pred_logits, pred_confidences = build_forward(self.H, x, phase, reuse)
+            pred_boxes, pred_logits, pred_confidences = self.build_forward(x, phase, reuse)
         with tf.variable_scope('decoder', reuse={'train': None, 'test': True}[phase]):
             outer_boxes = tf.reshape(boxes, [outer_size, self.H['rnn_len'], 4])
             outer_flags = tf.cast(tf.reshape(flags, [outer_size, self.H['rnn_len']]), 'int32')
