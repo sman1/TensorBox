@@ -9,3 +9,4 @@ graphs/*
 annos/*
 csv/*
 screens/*
+utils/stitch_wrapper.cpp
