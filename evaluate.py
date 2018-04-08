@@ -1,15 +1,9 @@
-import tensorflow as tf
 import os
 import json
 import subprocess
-from scipy.misc import imread, imresize
-from scipy import misc
 
 from model import TensorBox
-from utils.annolist import AnnotationLib as al
-from utils.train_utils import add_rectangles, rescale_boxes
 
-import cv2
 import argparse
 
 def main():
@@ -33,7 +27,12 @@ def main():
     true_boxes = '%s.gt_%s%s' % (args.weights, expname, os.path.basename(args.test_boxes))
 
     tensorbox = TensorBox(H)
-    pred_annolist, true_annolist = tensorbox.eval(weights, test_boxes, min_conf, tau, show_supressed, expname)
+    pred_annolist, true_annolist = tensorbox.eval(args.weights,
+                                                  args.test_boxes,
+                                                  args.min_conf,
+                                                  args.tau,
+                                                  args.show_suppressed,
+                                                  expname)
     pred_annolist.save(pred_boxes)
     true_annolist.save(true_boxes)
 
@@ -43,7 +42,7 @@ def main():
         rpc_output = subprocess.check_output(rpc_cmd, shell=True)
         print(rpc_output)
         txt_file = [line for line in rpc_output.split('\n') if line.strip()][-1]
-        output_png = '%s/results.png' % get_image_dir(args)
+        output_png = '%s/results.png' % tensorbox.get_image_dir(args.weights, expname, args.test_boxes)
         plot_cmd = './utils/annolist/plotSimple.py %s --output %s' % (txt_file, output_png)
         print('$ %s' % plot_cmd)
         plot_output = subprocess.check_output(plot_cmd, shell=True)

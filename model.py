@@ -3,12 +3,14 @@ import json
 import tensorflow.contrib.slim as slim
 import random
 import time
+import subprocess
 import string
 import os
 import threading
-from scipy import misc
 import tensorflow as tf
 import numpy as np
+from scipy import misc
+from scipy.misc import imread, imresize
 from distutils.version import LooseVersion
 if LooseVersion(tf.__version__) >= LooseVersion('1.0'):
     rnn_cell = tf.contrib.rnn
@@ -24,6 +26,8 @@ random.seed(0)
 np.random.seed(0)
 
 from utils import train_utils, googlenet_load, tf_concat
+from utils.annolist import AnnotationLib as al
+from utils.train_utils import add_rectangles, rescale_boxes
 
 @ops.RegisterGradient("Hungarian")     
 def _hungarian_grad(op, *args):       
@@ -536,7 +540,7 @@ class TensorBox(object):
         image_dir = '%s/images_%s_%d%s' % (os.path.dirname(weights), os.path.basename(test_boxes)[:-5], weights_iteration, expname)
         return image_dir
 
-    def eval(self, weights, test_boxes, min_conf, tau, show_supressed, expname):
+    def eval(self, weights, test_boxes, min_conf, tau, show_suppressed, expname):
         self.H["grid_width"] = self.H["image_width"] / self.H["region_size"]
         self.H["grid_height"] = self.H["image_height"] / self.H["region_size"]
         x_in = tf.placeholder(tf.float32, name='x_in', shape=[self.H['image_height'], self.H['image_width'], 3])
@@ -548,7 +552,7 @@ class TensorBox(object):
             if self.H['reregress']:
                 pred_boxes = pred_boxes + pred_boxes_deltas
         else:
-            pred_boxes, pred_logits, pred_confidences = tensorbox.build_forward(tf.expand_dims(x_in, 0), 'test', reuse=None)
+            pred_boxes, pred_logits, pred_confidences = self.build_forward(tf.expand_dims(x_in, 0), 'test', reuse=None)
         saver = tf.train.Saver()
         with tf.Session() as sess:
             sess.run(tf.global_variables_initializer())
