@@ -10,3 +10,5 @@ annos/*
 csv/*
 screens/*
 utils/stitch_wrapper.cpp
+utils/build/*
+*.swo

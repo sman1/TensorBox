@@ -49,7 +49,7 @@ Also a couple of experimental and not working models has been added recently.
 ## Evaluation
 
 ### Python script
-The following instructions demonstrate how test.py wase used after one of my experiments -
+The following instructions demonstrate how evaluate.py was used after one of my experiments -
 you will need to change paths as appropriate:
 
     $ # kill training script if you don't have a spare GPU
