@@ -98,6 +98,8 @@ For example, the following is a screenshot of a Tensorboard comparing two differ
 </pre>
 ## Community
 
-If you're new to object detection, and want to chat with other people that are working on similar problems, check out the community chat at https://gitter.im/Russell91/TensorBox, especially on Saturdays.
+If you're new to object detection, and want to chat with other people that are working on similar problems, check out the community chat at https://gitter.im/Russell91/TensorBox.
+
+If you would like to hire me as a consultant for Computer Vision, you can email me at russell.sb.stewart@gmail.com
 
 
