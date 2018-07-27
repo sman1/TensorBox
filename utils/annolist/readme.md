@@ -20,7 +20,7 @@ rect{
   "x1": int,
   "y1": int,
   "x2": int,
-  "x2": int
+  "y2": int
 }
 ```
 Each annotation is an object with two properties: `image_path` (string) and `rects` (list). The second property
@@ -68,7 +68,7 @@ rect{
   "x1": int,
   "y1": int,
   "x2": int,
-  "x2": int
+  "y2": int
 }
 ```
 This extension allows to point class of object which is surrounded by each box. The `classID` value is the index in
